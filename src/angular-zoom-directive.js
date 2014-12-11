@@ -77,18 +77,43 @@ app.directive('ovtsZoomControls', function( $window, $document ){
         var maxScale = Math.min(maxWidthScale, maxHeightScale);
         var minLog = Math.log(minScale);
         var maxLog = Math.log(maxScale);
-        var stepLength = ( maxLog - minLog ) / stepCnt
         
-        steps = [1];
+        steps = [];
+        var initalStep = Math.round(x(0));
         for (var i = 0; i < stepCnt; i++) {
-          var scaleStep = Math.pow(Math.E, (minLog + (stepLength * i)))
-          steps.push(scaleStep);
+          var step;
+          if (i < initalStep) {
+            step = leftY(i);
+          } 
+          else if(i > initalStep) {
+            step = rightY(i);
+          }
+          else {
+            step = 0;
+          }
+          steps.push(Math.pow(Math.E, step));      
         }
-        steps.sort();
+
+        console.log(steps)
+        
+        
+        function x(y) {
+          return ( stepCnt * (y - minLog) ) / (maxLog - minLog)
+        }
+
+        function leftY(x) {
+          return ( minLog / -initalStep * x ) + minLog
+        }
+
+        function rightY(x) {
+          return ( maxLog / (stepCnt - initalStep) * x ) + (0 - (initalStep * ( maxLog / (stepCnt - initalStep))  ))
+        }
 
         return steps.indexOf(1);
 
       };
+
+
 
       function applyTransformOrigin(element, cssValue) {
         element.style.transformOrigin = cssValue;
