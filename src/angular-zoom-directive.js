@@ -44,7 +44,7 @@ app.directive('ovtsZoomControls', function( $window, $document ){
       var eleTarget = $document[0].querySelector(options.target);
 
       var steps = [];
-      var stepCnt = $scope.stepCnt = options.stepCnt || 4;
+      var stepCnt = $scope.stepCnt = options.stepCnt || 10;
       var minHeight = options.minHeight;
       var minWidth = options.minWidth;
       var maxHeight = options.maxHeight;
@@ -80,7 +80,7 @@ app.directive('ovtsZoomControls', function( $window, $document ){
         
         steps = [];
         var initalStep = Math.round(x(0));
-        for (var i = 0; i < stepCnt; i++) {
+        for (var i = 0; i <= stepCnt; i++) {
           var step;
           if (i < initalStep) {
             step = leftY(i);
@@ -98,15 +98,16 @@ app.directive('ovtsZoomControls', function( $window, $document ){
         
         
         function x(y) {
-          return ( stepCnt * (y - minLog) ) / (maxLog - minLog)
+          return stepCnt * (y - minLog) / (maxLog - minLog)
         }
 
         function leftY(x) {
-          return ( minLog / -initalStep * x ) + minLog
+          return -minLog / initalStep * x + minLog
         }
 
         function rightY(x) {
-          return ( maxLog / (stepCnt - initalStep) * x ) + (0 - (initalStep * ( maxLog / (stepCnt - initalStep))  ))
+          var slope = maxLog / (stepCnt - initalStep);
+          return slope * ( x - initalStep );
         }
 
         return steps.indexOf(1);
