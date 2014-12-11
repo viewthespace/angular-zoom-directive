@@ -17,7 +17,7 @@ app.directive('ovtsZoomControls', function( $window, $document ){
     controllerAs: 'zoom',
     
     controller: function($scope){
-  
+
       this.in = function() {
         if($scope.currentStep < $scope.stepCnt) {
           $scope.currentStep += 1;
@@ -30,8 +30,12 @@ app.directive('ovtsZoomControls', function( $window, $document ){
         }
       }
 
-      this.toFit = function() {
+      this.isMaxedIn = function() {
+        return $scope.currentStep == $scope.stepCnt;
+      }
 
+      this.isMaxedOut = function() {
+        return $scope.currentStep == 0;
       }
 
     },
@@ -45,6 +49,8 @@ app.directive('ovtsZoomControls', function( $window, $document ){
 
       var steps = [];
       var stepCnt = $scope.stepCnt = options.stepCnt || 4;
+      var animation = options.animationFn || '.7s ease-out'
+      var transformOrigin = options.transformOrigin || 'center top'
       var minHeight = options.minHeight;
       var minWidth = options.minWidth;
       var maxHeight = options.maxHeight;
@@ -60,7 +66,8 @@ app.directive('ovtsZoomControls', function( $window, $document ){
 
       $scope.currentStep = calculateSteps();
 
-      applyAnimation(eleTarget, ".7s ease-out")
+      applyAnimation(eleTarget, animation);
+      applyTransformOrigin(eleTarget, transformOrigin)
 
       $scope.$watch('currentStep', function(currentStep){
         applyTransform(eleTarget, steps[currentStep]);
@@ -77,17 +84,36 @@ app.directive('ovtsZoomControls', function( $window, $document ){
         var maxScale = Math.min(maxWidthScale, maxHeightScale);
         var minLog = Math.log(minScale);
         var maxLog = Math.log(maxScale);
-        var stepLength = ( maxLog - minLog ) / stepCnt
         
-        steps = [1];
-        for (var i = 0; i < stepCnt; i++) {
-          var scaleStep = Math.pow(Math.E, (minLog + (stepLength * i)))
-          steps.push(scaleStep);
+        steps = [];
+        var initalStep = Math.round(x(0));
+        for (var i = 0; i <= stepCnt; i++) {
+          var step;
+          if (i < initalStep) {
+            step = leftY(i);
+          } 
+          else if(i > initalStep) {
+            step = rightY(i);
+          }
+          else {
+            step = 0;
+          }
+          steps.push(Math.pow(Math.E, step));      
         }
-        steps.sort();
+
+        function x(y) {
+          return stepCnt * (y - minLog) / (maxLog - minLog)
+        }
+
+        function leftY(x) {
+          return -minLog / initalStep * x + minLog
+        }
+
+        function rightY(x) {
+          return maxLog * ( x - initalStep ) / (stepCnt - initalStep);
+        }
 
         return steps.indexOf(1);
-
       };
 
       function applyTransformOrigin(element, cssValue) {
@@ -99,7 +125,7 @@ app.directive('ovtsZoomControls', function( $window, $document ){
       };
 
       function applyTransform (element, value) {
-        var cssValue = "scale(" + value + "," + value + ")";
+        var cssValue = "scale3d(" + value + "," + value + ", 1)";
         element.style.transform = cssValue;
         element.style.webkitTransform = cssValue;
         element.style.mozTransform = cssValue;
@@ -113,8 +139,6 @@ app.directive('ovtsZoomControls', function( $window, $document ){
         element.style.mozTransition = cssValue;
         return element.style.oTransition = cssValue;
       };
-
-      
     }
   }
 });
