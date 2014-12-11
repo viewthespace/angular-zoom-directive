@@ -1,0 +1,28 @@
+{
+  "name": "angular-zoom-directive",
+  "version": "0.0.1",
+  "authors": [
+    "Shawn O'Mara"
+  ],
+  "description": "A Customizable Angular Zoom directive that allows you to zoom in and out of DOM elements",
+  "main": "src/angular-zoom-directive.js",
+  "keywords": [
+    "angular",
+    "zoom",
+    "vts"
+  ],
+  "license": "MIT",
+  "private": false,
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "test"
+  ],
+  "dependencies": {
+    "angular": "latest"
+  },
+  "devDependencies": {
+    "angular-mocks": "latest",
+    "chai": "latest"
+  }
+}
