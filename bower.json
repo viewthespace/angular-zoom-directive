@@ -12,7 +12,7 @@
     "vts"
   ],
   "license": "MIT",
-  "private": false,
+  "private": true,
   "ignore": [
     "**/.*",
     "bower_components",
