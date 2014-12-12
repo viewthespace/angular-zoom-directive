@@ -17,7 +17,7 @@ app.directive('ovtsZoomControls', function( $window, $document ){
     controllerAs: 'zoom',
     
     controller: function($scope){
-  
+
       this.in = function() {
         if($scope.currentStep < $scope.stepCnt) {
           $scope.currentStep += 1;
@@ -30,8 +30,12 @@ app.directive('ovtsZoomControls', function( $window, $document ){
         }
       }
 
-      this.toFit = function() {
+      this.isMaxedIn = function() {
+        return $scope.currentStep == $scope.stepCnt;
+      }
 
+      this.isMaxedOut = function() {
+        return $scope.currentStep == 0;
       }
 
     },
@@ -44,7 +48,9 @@ app.directive('ovtsZoomControls', function( $window, $document ){
       var eleTarget = $document[0].querySelector(options.target);
 
       var steps = [];
-      var stepCnt = $scope.stepCnt = options.stepCnt || 10;
+      var stepCnt = $scope.stepCnt = options.stepCnt || 4;
+      var animation = options.animationFn || '.7s ease-out'
+      var transformOrigin = options.transformOrigin || 'center top'
       var minHeight = options.minHeight;
       var minWidth = options.minWidth;
       var maxHeight = options.maxHeight;
@@ -60,7 +66,8 @@ app.directive('ovtsZoomControls', function( $window, $document ){
 
       $scope.currentStep = calculateSteps();
 
-      applyAnimation(eleTarget, ".7s ease-out")
+      applyAnimation(eleTarget, animation);
+      applyTransformOrigin(eleTarget, transformOrigin)
 
       $scope.$watch('currentStep', function(currentStep){
         applyTransform(eleTarget, steps[currentStep]);
@@ -94,9 +101,6 @@ app.directive('ovtsZoomControls', function( $window, $document ){
           steps.push(Math.pow(Math.E, step));      
         }
 
-        console.log(steps)
-        
-        
         function x(y) {
           return stepCnt * (y - minLog) / (maxLog - minLog)
         }
@@ -106,15 +110,11 @@ app.directive('ovtsZoomControls', function( $window, $document ){
         }
 
         function rightY(x) {
-          var slope = maxLog / (stepCnt - initalStep);
-          return slope * ( x - initalStep );
+          return maxLog * ( x - initalStep ) / (stepCnt - initalStep);
         }
 
         return steps.indexOf(1);
-
       };
-
-
 
       function applyTransformOrigin(element, cssValue) {
         element.style.transformOrigin = cssValue;
@@ -125,7 +125,7 @@ app.directive('ovtsZoomControls', function( $window, $document ){
       };
 
       function applyTransform (element, value) {
-        var cssValue = "scale(" + value + "," + value + ")";
+        var cssValue = "scale3d(" + value + "," + value + ", 1)";
         element.style.transform = cssValue;
         element.style.webkitTransform = cssValue;
         element.style.mozTransform = cssValue;
@@ -139,8 +139,6 @@ app.directive('ovtsZoomControls', function( $window, $document ){
         element.style.mozTransition = cssValue;
         return element.style.oTransition = cssValue;
       };
-
-      
     }
   }
 });

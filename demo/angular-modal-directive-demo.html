@@ -16,6 +16,10 @@
       background-color: gray;
       margin: 200px
     }
+
+    .disabled {
+      opacity: .3
+    }
     </style>
   </head>
 <body ng-app='demo'>
@@ -26,8 +30,8 @@
   <h2>Zoom with contraints in width and height</h2>
 
   <div ovts-zoom-controls='{ target: "#target", minWidth: 80, minHeight: 100, maxWidth: 700, maxHeight: 2000 }'>
-    <button ng-click='zoom.in()'>Zoom In</button>
-    <button ng-click='zoom.out()'> Zoom out</button>
+    <button ng-click='zoom.in()' ng-class='{ disabled: zoom.isMaxedIn() }'>Zoom In</button>
+    <button ng-click='zoom.out()' ng-class='{ disabled: zoom.isMaxedOut() }'> Zoom out</button>
     <button ng-click='zoom.toFit()'> Zoom to Fit</button>
   </div>
 
