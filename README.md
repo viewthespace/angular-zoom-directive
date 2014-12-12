@@ -1,5 +1,5 @@
 ### Demo
-http://viewthespace.github.io/angular-zoom-directive/
+http://viewthespace.github.io/angular-zoom-directive
 
 ###Install:
 
