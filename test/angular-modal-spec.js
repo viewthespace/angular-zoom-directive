@@ -1,6 +1,6 @@
 describe('angular-zoom-directive', function(){
   var expect = chai.expect;
-  var $compile, $scope, $document, body, transcludedScope, eleTarget;
+  var $compile, $scope, $document, body, container, transcludedScope, eleTarget;
   
   beforeEach(module('open-vts'))
 
@@ -16,16 +16,22 @@ describe('angular-zoom-directive', function(){
   });
 
   beforeEach(function(){
+    container = angular.element('<div></div>');
     eleZoomDirective = angular.element(
       '<div ovts-zoom-controls=\'{ target: "#target", minWidth: 80, minHeight: 100, maxWidth: 700, maxHeight: 2000 }\'>' +
         '<div id="controlTarget"></div>' +
       '</div>'
     );
     eleTarget = angular.element('<div style="width: 300px; height: 1000px; background-color: gray;" id="target"/>');
-    body.append(eleTarget);
-    body.append(eleZoomDirective);
+    body.append(container);
+    container.append(eleTarget);
+    container.append(eleZoomDirective);
     $compile(eleZoomDirective)($scope);
-    transcludedScope = angular.element(document.querySelector('#controlTarget')).scope();
+    transcludedScope = angular.element(eleZoomDirective[0].querySelector('#controlTarget')).scope();
+  });
+
+  afterEach(function(){
+    container.empty();
   });
 
   describe('zoom.in', function(){
@@ -48,7 +54,7 @@ describe('angular-zoom-directive', function(){
       transcludedScope.$digest();
       var transformStyle = eleTarget[0].style.transform;
       var step = parseFloat(transformStyle.substring(transformStyle.indexOf('(') + 1, transformStyle.indexOf(',')));
-      expect(step).to.be.closeTo(1, 0.01);
+      expect(step).to.be.closeTo(0.64, 0.01);
     });
 
   });
