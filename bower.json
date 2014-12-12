@@ -4,7 +4,7 @@
   "authors": [
     "Shawn O'Mara"
   ],
-  "description": "A Customizable Angular Zoom directive that allows you to zoom in and out of DOM elements",
+  "description": "A customizable Angular zoom directive that allows you to zoom in and out of DOM elements using css transformations",
   "main": "src/angular-zoom-directive.js",
   "keywords": [
     "angular",
@@ -12,7 +12,7 @@
     "vts"
   ],
   "license": "MIT",
-  "private": true,
+  "private": false,
   "ignore": [
     "**/.*",
     "bower_components",
