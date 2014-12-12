@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge, chrome=1" />
+    <title>Angular Zoom Directive Demo</title>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../src/angular-zoom-directive.js"></script>
+    <script type="text/javascript">
+      app = angular.module('demo', ['open-vts'])
+    </script>
+    <style type="text/css">
+    #target {
+      width: 500px;
+      height: 400px;
+      background-color: gray;
+      margin: 200px
+    }
+
+    .disabled {
+      opacity: .3
+    }
+    </style>
+  </head>
+<body ng-app='demo'>
+ 
+
+  <h2>Zoom with contraints in width</h2>
+  <h2>Zoom with contraints in height</h2>
+  <h2>Zoom with contraints in width and height</h2>
+
+  <div ovts-zoom-controls='{ target: "#target", minWidth: 80, minHeight: 100, maxWidth: 700, maxHeight: 2000 }'>
+    <button ng-click='zoom.in()' ng-class='{ disabled: zoom.isMaxedIn() }'>Zoom In</button>
+    <button ng-click='zoom.out()' ng-class='{ disabled: zoom.isMaxedOut() }'> Zoom out</button>
+    <button ng-click='zoom.toFit()'> Zoom to Fit</button>
+  </div>
+
+  <div id='target'/>
+
+  
+
+</body>
+
+</html>
