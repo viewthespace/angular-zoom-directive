@@ -1,3 +1,11 @@
+###Install:
+
+```Javascript
+bower install angular-zoom-directive
+```
+
+###Setup:
+
 ```HTML
   <div ovts-zoom-controls='{target: "#target", minWidth: 80, minHeight: 100, maxWidth: 700, maxHeight: 2000}'>
     <button ng-click='zoom.in()' ng-class='{ disabled: zoom.isMaxedIn() }'>Zoom In</button>
