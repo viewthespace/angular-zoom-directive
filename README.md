@@ -1,1 +1,8 @@
-### A customizable Angular zoom directive that allows you to zoom in and out of DOM elements.
+```HTML
+  <div ovts-zoom-controls='{target: "#target", minWidth: 80, minHeight: 100, maxWidth: 700, maxHeight: 2000}'>
+    <button ng-click='zoom.in()' ng-class='{ disabled: zoom.isMaxedIn() }'>Zoom In</button>
+    <button ng-click='zoom.out()' ng-class='{ disabled: zoom.isMaxedOut() }'> Zoom out</button>
+  </div>
+
+  <div id='target'/>
+```
