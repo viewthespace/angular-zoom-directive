@@ -38,6 +38,7 @@
       .card {
         background-color: #394351;
         color: #333333;
+        margin-top: 50px;
       }
 
       .content-wrapper{
@@ -55,77 +56,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.js"></script>
     <nav>
       <div class="nav-wrapper">
-        <a href="#" class="brand-logo">Open VTS</a>
+        <a href="#" class="brand-logo">Angular Zoom Directive</a>
       </div>
     </nav>
           
   <div class='content-wrapper'>
-    <h1>Angular Zoom Directive</h1>
 
     <div class="row">
       <div class="col s12 m12 l10">
         <div class="card">
           <div class="card-content">
-            <span class="card-title">Min/Max Contraints</span>
+            <span class="card-title">All Options</span>
 
-<pre><code class="language-markup">
-&lt;div ovts-zoom-controls=&#39;{ target: &quot;#target&quot;, minWidth: 80, minHeight: 100, maxWidth: 700, maxHeight: 2000 }&#39;&gt;
-  &lt;button ng-click=&#39;zoom.in()&#39; ng-class=&#39;{ disabled: zoom.isMaxedIn() }&#39;&gt;Zoom In&lt;/button&gt;
-  &lt;button ng-click=&#39;zoom.out()&#39; ng-class=&#39;{ disabled: zoom.isMaxedOut() }&#39;&gt; Zoom out&lt;/button&gt;
+<pre id="code-example-1"><code  class="language-markup">&lt;div ovts-zoom-controls=&#39;{ target: &quot;#code-example-1&quot;, minWidth: 80, minHeight: 20, maxWidth: 3000, maxHeight: 2000,  stepCnt: 10}&#39;&gt;
+  &lt;a href=&quot;#&quot; ng-click=&#39;zoom.in()&#39; ng-class=&#39;{ disabled: zoom.isMaxedIn() }&#39;&gt;Zoom In&lt;/a&gt;
+  &lt;a href=&quot;#&quot; ng-click=&#39;zoom.out()&#39; ng-class=&#39;{ disabled: zoom.isMaxedOut() }&#39;&gt; Zoom out&lt;/a&gt;
 &lt;/div&gt;
-
-&lt;div id=&#39;target&#39;/&gt;
 </code></pre>
 
           </div>
           <div class="card-action">
-            <a href="#">Zoom In</a>
-            <a href='#'>Zoom Out</a>
+            <div ovts-zoom-controls='{ target: "#code-example-1", minWidth: 80, minHeight: 20, maxWidth: 3000, maxHeight: 2000,  stepCnt: 10}'>
+              <a href="#" ng-click='zoom.in()' ng-class='{ disabled: zoom.isMaxedIn() }'>Zoom In</a>
+              <a href="#" ng-click='zoom.out()' ng-class='{ disabled: zoom.isMaxedOut() }'> Zoom out</a>
+            </div>
+    
           </div>
         </div>
       </div>
     </div>
 
-    <div class="row">
-      <div class="col s8 m8">
-        <div class="card">
-          <div class="card-content white-text">
-            <span class="card-title">With min and max scale contraints</span>
-            <p>I am a very simple card. I am good at containing small bits of information.
-            I am convenient because I require little markup to use effectively.</p>
-          </div>
-          <div class="card-action">
-            <a href="#">Zoom In</a>
-            <a href='#'>Zoom Out</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col s12 m12">
-        <div class="card">
-          <div class="card-content white-text">
-            <span class="card-title">With min and max scale contraints</span>
-            <p>I am a very simple card. I am good at containing small bits of information.
-            I am convenient because I require little markup to use effectively.</p>
-          </div>
-          <div class="card-action">
-            <a href="#">Zoom In</a>
-            <a href='#'>Zoom Out</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  <!--      
-      &lt;div ovts-zoom-controls=&#39;{ target: &quot;#target&quot;, minWidth: 80, minHeight: 100, maxWidth: 700, maxHeight: 2000 }&#39;&gt;
-        &lt;button ng-click=&#39;zoom.in()&#39; ng-class=&#39;{ disabled: zoom.isMaxedIn() }&#39;&gt;Zoom In&lt;/button&gt;
-        &lt;button ng-click=&#39;zoom.out()&#39; ng-class=&#39;{ disabled: zoom.isMaxedOut() }&#39;&gt; Zoom out&lt;/button&gt;
-      &lt;/div&gt;
-
-      &lt;div id=&#39;target&#39;/&gt;
--->
+ 
   </div>
   
   </body>
