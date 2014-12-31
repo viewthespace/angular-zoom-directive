@@ -66,11 +66,13 @@ app.directive('ovtsZoomControls', function( $window, $document ){
 
       $scope.currentStep = calculateSteps();
 
-      applyAnimation(eleTarget, animation);
       applyTransformOrigin(eleTarget, transformOrigin)
 
-      $scope.$watch('currentStep', function(currentStep){
-        applyTransform(eleTarget, steps[currentStep]);
+      $scope.$watch('currentStep', function(currentStep, oldStep){
+          if(currentStep !== oldStep){
+            applyAnimation(eleTarget, animation);
+          }
+          applyTransform(eleTarget, steps[currentStep]);
       });
 
       function calculateSteps(){
