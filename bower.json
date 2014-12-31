@@ -1,6 +1,6 @@
 {
   "name": "angular-zoom-directive",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "authors": [
     "Shawn O'Mara"
   ],
@@ -16,7 +16,8 @@
   "ignore": [
     "**/.*",
     "bower_components",
-    "test"
+    "test",
+    "demo"
   ],
   "dependencies": {
     "angular": "latest"
