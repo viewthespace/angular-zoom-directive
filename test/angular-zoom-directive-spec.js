@@ -1,15 +1,16 @@
 describe('angular-zoom-directive', function(){
   var expect = chai.expect;
-  var $compile, $scope, $document, body, container, transcludedScope, eleTarget;
+  var $compile, $timeout, $scope, $document, body, container, transcludedScope, eleTarget;
   
   beforeEach(module('open-vts'))
 
   beforeEach(function(){
 
-    inject(function(_$compile_, _$rootScope_, _$document_) {
+    inject(function(_$compile_, _$rootScope_, _$document_, _$timeout_) {
       $compile = _$compile_;
       $scope = _$rootScope_;
-      $document = _$document_
+      $document = _$document_;
+      $timeout = _$timeout_;
       body = angular.element(_$document_[0].body)
     });
 
@@ -27,6 +28,7 @@ describe('angular-zoom-directive', function(){
     container.append(eleTarget);
     container.append(eleZoomDirective);
     $compile(eleZoomDirective)($scope);
+    $timeout.flush();
     transcludedScope = angular.element(eleZoomDirective[0].querySelector('#controlTarget')).scope();
   });
 
