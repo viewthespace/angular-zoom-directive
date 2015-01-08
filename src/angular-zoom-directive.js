@@ -59,15 +59,18 @@ app.directive('ovtsZoomControls', function( $window, $document, $timeout ){
         var maxWidth = options.maxHeight;
         var min = options.min
         var max = options.max
-        var offsetY = options.offsetY || 0
+        var minWidthOffset = options.minWidthOffset || 0
+        var minHeightOffset = options.minHeightOffset || 0
+        var maxWidthOffset = options.maxWidthOffset || 0
+        var maxHeightOffset = options.maxHeightOffset || 0
         var offsetX = options.offsetX || 0
 
         if(minWidth === 'initial') {
-          minWidth = eleTarget.clientWidth
+          minWidth = eleTarget.clientWidth;
         }
 
         if(minHeight === 'initial') {
-          minHeight = eleTarget.clientHeight
+          minHeight = eleTarget.clientHeight;
         }
 
         if(minWidth === 'window') {
@@ -93,6 +96,11 @@ app.directive('ovtsZoomControls', function( $window, $document, $timeout ){
         if(maxHeight === 'window') {
           maxHeight = $window.innerHeight
         }
+
+        minHeight += minWidthOffset;
+        minHeight += minHeightOffset;
+        maxWidth += maxWidthOffset;
+        maxHeight += maxHeightOffset;
 
         transclude($scope, function(nodes){
           angular.element(eleControls).append(nodes);
