@@ -177,7 +177,7 @@ app.directive('ovtsZoomControls', function( $window, $document, $timeout ){
         };
 
         function applyTransform (element, value) {
-          var cssValue = "scale3d(" + value + "," + value + ", 1)";
+          var cssValue = "scale(" + value + "," + value + ")";
           element.style.transform = cssValue;
           element.style.webkitTransform = cssValue;
           element.style.mozTransform = cssValue;
