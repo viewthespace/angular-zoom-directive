@@ -136,32 +136,21 @@ app.directive('ovtsZoomControls', function( $window, $document, $timeout ){
 
           }else{
 
-            var initalStep = Math.round(x(0));
+            var x = stepCnt * minLog / (maxLog - minLog)
+            var initalStep = Math.round(stepCnt * -minLog / (maxLog - minLog));
 
             for (var i = 0; i <= stepCnt; i++) {
               var step;
               if (i < initalStep) {
-                step = leftY(i);
+                step = -minLog / initalStep * i + minLog;
               }
               else if(i > initalStep) {
-                step = rightY(i);
+                step = maxLog * ( i - initalStep ) / (stepCnt - initalStep);
               }
               else {
                 step = 0;
               }
               steps.push(Math.pow(Math.E, step));
-            }
-
-            function x(y) {
-              return stepCnt * (y - minLog) / (maxLog - minLog)
-            }
-
-            function leftY(x) {
-              return -minLog / initalStep * x + minLog
-            }
-
-            function rightY(x) {
-              return maxLog * ( x - initalStep ) / (stepCnt - initalStep);
             }
 
           }
