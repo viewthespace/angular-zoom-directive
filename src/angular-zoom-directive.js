@@ -136,7 +136,6 @@ app.directive('ovtsZoomControls', function( $window, $document, $timeout ){
 
           }else{
 
-            var x = stepCnt * minLog / (maxLog - minLog)
             var initalStep = Math.round(stepCnt * -minLog / (maxLog - minLog));
 
             for (var i = 0; i <= stepCnt; i++) {
