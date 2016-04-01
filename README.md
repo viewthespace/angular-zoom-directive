@@ -1,6 +1,3 @@
-### Demo
-http://viewthespace.github.io/angular-zoom-directive
-
 ###Install:
 
 ```Javascript
