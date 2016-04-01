@@ -41,29 +41,27 @@ app.directive('ovtsZoomControls', function( $window, $document, $timeout ){
     },
 
     link: function($scope, ele, attrs, controller, transclude){
-
-      $timeout(function() {
-
-        var options = $scope.$eval(attrs.ovtsZoomControls) || {};
-
+      var options = $scope.$eval(attrs.ovtsZoomControls) || {};
+      var eleTarget = $document[0].querySelector(options.target);
+      $scope.$watch(function(){
+        return [$window.innerWidth, $window.innerHeight, eleTarget.clientWidth, eleTarget.clientHeight];
+      }, function() {
         var eleControls = ele[0];
-        var eleTarget = $document[0].querySelector(options.target);
-
         var steps = $scope.steps = [];
         var stepCnt = $scope.stepCnt = options.stepCnt || 4;
-        var animation = options.animationFn || '.7s ease-out'
-        var transformOrigin = options.transformOrigin || 'center top'
+        var animation = options.animationFn || '.7s ease-out';
+        var transformOrigin = options.transformOrigin || 'center top';
         var minHeight = options.minHeight;
         var minWidth = options.minWidth;
         var maxHeight = options.maxHeight;
         var maxWidth = options.maxHeight;
-        var min = options.min
-        var max = options.max
-        var minWidthOffset = options.minWidthOffset || 0
-        var minHeightOffset = options.minHeightOffset || 0
-        var maxWidthOffset = options.maxWidthOffset || 0
-        var maxHeightOffset = options.maxHeightOffset || 0
-        var offsetX = options.offsetX || 0
+        var min = options.min;
+        var max = options.max;
+        var minWidthOffset = options.minWidthOffset || 0;
+        var minHeightOffset = options.minHeightOffset || 0;
+        var maxWidthOffset = options.maxWidthOffset || 0;
+        var maxHeightOffset = options.maxHeightOffset || 0;
+        var offsetX = options.offsetX || 0;
 
         if(minWidth === 'initial') {
           minWidth = eleTarget.clientWidth;
@@ -106,7 +104,10 @@ app.directive('ovtsZoomControls', function( $window, $document, $timeout ){
           angular.element(eleControls).append(nodes);
         })
 
-        $scope.currentStep = calculateSteps();
+        var pos = calculateSteps();
+        if(typeof $scope.currentStep === 'undefined')  {
+          $scope.currentStep = pos;
+        }
 
         applyTransformOrigin(eleTarget, transformOrigin)
 
@@ -136,6 +137,7 @@ app.directive('ovtsZoomControls', function( $window, $document, $timeout ){
 
           }else{
 
+            var x = stepCnt * minLog / (maxLog - minLog)
             var initalStep = Math.round(stepCnt * -minLog / (maxLog - minLog));
 
             for (var i = 0; i <= stepCnt; i++) {
@@ -180,7 +182,7 @@ app.directive('ovtsZoomControls', function( $window, $document, $timeout ){
           return element.style.oTransition = cssValue;
         };
 
-      });
+      }, true);
 
     }
   }

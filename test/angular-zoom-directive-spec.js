@@ -28,7 +28,7 @@ describe('angular-zoom-directive', function(){
     container.append(eleTarget);
     container.append(eleZoomDirective);
     $compile(eleZoomDirective)($scope);
-    $timeout.flush();
+    $scope.$digest()
     transcludedScope = angular.element(eleZoomDirective[0].querySelector('#controlTarget')).scope();
   });
 
