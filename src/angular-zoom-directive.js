@@ -44,8 +44,12 @@ app.directive('ovtsZoomControls', function( $window, $document, $timeout ){
       var options = $scope.$eval(attrs.ovtsZoomControls) || {};
       var eleTarget = $document[0].querySelector(options.target);
       $scope.$watch(function(){
-        return [$window.innerWidth, $window.innerHeight, eleTarget.clientWidth, eleTarget.clientHeight];
-      }, function() {
+        return [eleTarget.clientWidth, eleTarget.clientHeight];
+      }, calc, true);
+
+      $window.addEventListener('resize', calc);
+
+      function calc() {
         var eleControls = ele[0];
         var steps = $scope.steps = [];
         var stepCnt = $scope.stepCnt = options.stepCnt || 4;
@@ -182,7 +186,7 @@ app.directive('ovtsZoomControls', function( $window, $document, $timeout ){
           return element.style.oTransition = cssValue;
         };
 
-      }, true);
+      }
 
     }
   }
