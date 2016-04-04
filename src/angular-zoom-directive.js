@@ -108,10 +108,7 @@ app.directive('ovtsZoomControls', function( $window, $document, $timeout ){
           angular.element(eleControls).append(nodes);
         })
 
-        var pos = calculateSteps();
-        if(typeof $scope.currentStep === 'undefined')  {
-          $scope.currentStep = pos;
-        }
+        $scope.currentStep = calculateSteps();
 
         applyTransformOrigin(eleTarget, transformOrigin)
 
