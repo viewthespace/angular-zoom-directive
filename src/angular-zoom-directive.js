@@ -160,27 +160,30 @@ app.directive('ovtsZoomControls', function( $window, $document, $timeout ){
         };
 
         function applyTransformOrigin(element, cssValue) {
-          element.style.transformOrigin = cssValue;
-          element.style.webkitTransformOrigin = cssValue;
-          element.style.mozTransformOrigin = cssValue;
-          element.style.msTransformOrigin = cssValue;
-          return element.style.oTransformOrigin = cssValue;
+          var s = element.style;
+          s.transformOrigin = cssValue;
+          s.webkitTransformOrigin = cssValue;
+          s.mozTransformOrigin = cssValue;
+          s.msTransformOrigin = cssValue;
+          s.oTransformOrigin = cssValue;
         };
 
         function applyTransform (element, value) {
           var cssValue = "scale(" + value + "," + value + ")";
-          element.style.transform = cssValue;
-          element.style.webkitTransform = cssValue;
-          element.style.mozTransform = cssValue;
-          element.style.msTransform = cssValue;
-          return element.style.oTransform = cssValue;
-        };
+          var s = element.style;
+          s.transform = (value === 1) ? 'none' : cssValue;
+          s.webkitTransform = (value === 1) ? 'none' : cssValue;
+          s.mozTransform = (value === 1) ? 'none' : cssValue;
+          s.msTransform = (value === 1) ? 'none' : cssValue;
+          s.oTransform = (value === 1) ? 'none' : cssValue;
+        };        
 
         function applyAnimation (element, cssValue) {
-          element.style.transition = cssValue;
-          element.style.webkitTransition = cssValue;
-          element.style.mozTransition = cssValue;
-          return element.style.oTransition = cssValue;
+          var s = element.style;
+          s.transition = cssValue;
+          s.webkitTransition = cssValue;
+          s.mozTransition = cssValue;
+          s.oTransition = cssValue;
         };
 
       }
